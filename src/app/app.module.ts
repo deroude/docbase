@@ -1,18 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 
-import { AppComponent } from './app.component';
+import { MainComponent } from './components/main/main.component';
+import { AppMaterialModule } from './app.material.module';
+import { AppRoutingModule } from './app.routing.module';
+import { RequirementComponent } from './components/requirement/requirement.component';
+import { RecordService } from './services/record.service';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    MainComponent,
+    RequirementComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [RecordService],
+  bootstrap: [MainComponent]
 })
 export class AppModule { }
