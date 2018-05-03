@@ -11,6 +11,7 @@ import { RecordService } from './services/record.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [RecordService],
+  providers: [RecordService, AuthService],
   bootstrap: [MainComponent]
 })
 export class AppModule { }
