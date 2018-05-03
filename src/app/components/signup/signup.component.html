@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Sign up</h1>
+<form mat-dialog-content class="form-column" [formGroup]="signupForm">
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-error *ngIf="hasError('email','email')">Invalid email</mat-error>
+    <mat-error *ngIf="hasError('email','required')">Email cannot be empty</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Full name" formControlName="name">
+    <mat-error *ngIf="hasError('name','required')">Name cannot be empty</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password" formControlName="password">
+    <mat-error *ngIf="hasError('password','required')">Password cannot be empty</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password repeat" formControlName="passwordRepeat">
+    <mat-error *ngIf="hasError('passwordRepeat','required')">Password cannot be empty</mat-error>
+  </mat-form-field>
+  <mat-error *ngIf="hasFormError('passwordsMatch')">Passwords do not match</mat-error>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="signup()" cdkFocusInitial>Ok</button>
+</div>
