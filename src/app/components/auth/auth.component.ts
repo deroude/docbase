@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SignupComponent } from '../signup/signup.component';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'auth',
@@ -10,24 +11,31 @@ import { LoginComponent } from '../login/login.component';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private auth: AuthService) { }
+
+  loggedIn: boolean = false;
 
   ngOnInit() {
+    this.auth.getUser().subscribe(u => {
+      this.loggedIn = (u !== null);
+    });
   }
-  
-  signup() {
+
+  signUp() {
     let dialogRef = this.dialog.open(SignupComponent, {});
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The singup dialog was closed', result);
+      this.auth.signUp(result.email, result.password);
     });
   }
 
-  login() {
+  signIn() {
     let dialogRef = this.dialog.open(LoginComponent, {});
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The login dialog was closed', result);
+      this.auth.signIn(result.email, result.password);
     });
+  }
+
+  signOut(){
+    this.auth.signOut();
   }
 }

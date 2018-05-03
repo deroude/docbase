@@ -1,8 +1,14 @@
-<button mat-button (click)="login()">
-  <mat-icon aria-hidden="true">lock</mat-icon>
-  <span> Login</span>
-</button>
-<button mat-button (click)="signup()">
-  <mat-icon aria-hidden="true">thumb_up</mat-icon>
-  <span> Sign up</span>
+<ng-container *ngIf="!loggedIn">
+  <button mat-button (click)="signIn()">
+    <mat-icon aria-hidden="true">lock</mat-icon>
+    <span> Login</span>
+  </button>
+  <button mat-button (click)="signUp()">
+    <mat-icon aria-hidden="true">thumb_up</mat-icon>
+    <span> Sign up</span>
+  </button>
+</ng-container>
+<button *ngIf="loggedIn" mat-button (click)="signOut()">
+  <mat-icon aria-hidden="true">exit_to_app</mat-icon>
+  <span> Logout</span>
 </button>

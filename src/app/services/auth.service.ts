@@ -14,8 +14,15 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth) { }
 
-  public signIn(email: string, password: string): Observable<boolean> {
+  public signUp(email: string, password: string): Observable<boolean> {
     return fromPromise(firebase.auth().createUserWithEmailAndPassword(email, password)).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
+  }
+
+  public signIn(email: string, password: string): Observable<boolean> {
+    return fromPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password)).pipe(
       map(() => true),
       catchError(() => of(false))
     );
@@ -23,5 +30,12 @@ export class AuthService {
 
   public getUser(): Observable<firebase.User> {
     return this.afAuth.authState;
+  }
+
+  public signOut(): Observable<boolean> {
+    return fromPromise(this.afAuth.auth.signOut()).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 }
