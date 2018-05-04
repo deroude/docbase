@@ -38,4 +38,8 @@ export class AuthService {
       catchError(() => of(false))
     );
   }
+
+  public getAfterAuth<T>(cb: (u: firebase.User) => Observable<T>): Observable<T> {
+    return this.getUser().filter(u => u !== null).switchMap(cb);
+  }
 }

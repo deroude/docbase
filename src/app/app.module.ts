@@ -16,6 +16,14 @@ import { AuthComponent } from './components/auth/auth.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ProgressService } from './services/progress.service';
+import { TenantService } from './services/tenant.service';
+import { ProjectListComponent } from './components/project-list/project-list.component';
+import { ProjectService } from './services/project.service';
+import { TenantComponent } from './components/tenant/tenant.component';
+import { ProjectComponent } from './components/project/project.component';
+import { RequirementService } from './services/requirement.service';
+import { MarkedPipe } from './pipes/marked.pipe';
 
 
 @NgModule({
@@ -24,7 +32,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
     RequirementComponent,
     AuthComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    ProjectListComponent,
+    TenantComponent,
+    ProjectComponent,
+    MarkedPipe,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +48,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [AuthService, AngularFireAuth],
+  providers: [AuthService, AngularFireAuth, ProgressService, TenantService, ProjectService, RequirementService],
   bootstrap: [MainComponent],
   entryComponents: [LoginComponent, SignupComponent]
 })

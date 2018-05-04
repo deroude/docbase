@@ -1,0 +1,4 @@
+<button mat-button *ngFor="let p of projects$|async" [routerLink]="['project',p.id]">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    {{p.name}}
+</button>
