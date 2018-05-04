@@ -25,6 +25,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { RequirementService } from './services/requirement.service';
 import { MarkedPipe } from './pipes/marked.pipe';
 import { HomeComponent } from './components/home/home.component';
+import { MarkdownEditorDirective } from './directives/mde.directive';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { HomeComponent } from './components/home/home.component';
     ProjectComponent,
     MarkedPipe,
     HomeComponent,
+    MarkdownEditorDirective,
   ],
   imports: [
     BrowserModule,

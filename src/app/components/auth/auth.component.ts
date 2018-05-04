@@ -18,7 +18,7 @@ export class AuthComponent implements OnInit {
   constructor(public dialog: MatDialog, private auth: AuthService, private progress: ProgressService) { }
 
   loggedIn: boolean = false;
-  tenant$:Observable<Tenant[]>
+  tenant$: Observable<Tenant[]>
 
   ngOnInit() {
     this.auth.getUser().subscribe(u => {
@@ -29,26 +29,30 @@ export class AuthComponent implements OnInit {
   signUp() {
     let dialogRef = this.dialog.open(SignupComponent, {});
     dialogRef.afterClosed().subscribe(result => {
-      this.progress.start();
-      this.auth.signUp(result.email, result.password).subscribe((success) => {
-        this.progress.finish();
-      })
+      if (result) {
+        this.progress.start();
+        this.auth.signUp(result.email, result.password).subscribe((success) => {
+          this.progress.finish();
+        })
+      }
     });
   }
 
   signIn() {
     let dialogRef = this.dialog.open(LoginComponent, {});
     dialogRef.afterClosed().subscribe(result => {
-      this.progress.start();
-      this.auth.signIn(result.email, result.password).subscribe((success)=>{
-        // this.progress.finish();
-      })
+      if (result) {
+        this.progress.start();
+        this.auth.signIn(result.email, result.password).subscribe((success) => {
+          this.progress.finish();
+        })
+      }
     });
   }
 
   signOut() {
     this.progress.start();
-    this.auth.signOut().subscribe((success)=>{
+    this.auth.signOut().subscribe((success) => {
       this.progress.finish();
     });
   }
