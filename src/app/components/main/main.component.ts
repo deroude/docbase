@@ -3,6 +3,8 @@ import { ProgressService } from '../../services/progress.service';
 import { TenantService } from '../../services/tenant.service';
 import { Tenant } from '../../domain/Tenant';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +17,12 @@ export class MainComponent {
   progressBarShown: boolean = false;
   tenant$: Observable<Tenant[]>;
 
-  constructor(private progress: ProgressService, private tenantService: TenantService) {
+  constructor(private progress: ProgressService, private tenantService: TenantService, private router: Router, private auth: AuthService) {
     this.progress.get().subscribe(val => this.progressBarShown = val);
-    this.progress.start();
     this.tenant$ = this.tenantService.getTenants();
     this.tenant$.subscribe(re => { if (re !== null) this.progress.finish() });
+    this.auth.getUser().subscribe(u=>{
+      if(u===null) this.router.navigate(["home"]);
+    });
   }
 }

@@ -19,10 +19,13 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
     this.requirements$ = combineLatest(this.route.parent.paramMap, this.route.paramMap)
-      .switchMap(
-        ([tenantParam, projectParam]) => this.requirementService.getRequirements(
-          tenantParam.get("tenantId"), projectParam.get("projectId")
-        )
+    .filter(([tenantParam,projectParam])=>tenantParam.get("tenantId")!==null&&projectParam.get("projectId")!==null)  
+    .switchMap(
+        ([tenantParam, projectParam]) => {
+          return this.requirementService.getRequirements(
+            tenantParam.get("tenantId"), projectParam.get("projectId")
+          );
+        }
       );
   }
 

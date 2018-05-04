@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.progress.start();
       this.auth.signIn(result.email, result.password).subscribe((success)=>{
-        this.progress.finish();
+        // this.progress.finish();
       })
     });
   }

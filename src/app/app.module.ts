@@ -24,6 +24,7 @@ import { TenantComponent } from './components/tenant/tenant.component';
 import { ProjectComponent } from './components/project/project.component';
 import { RequirementService } from './services/requirement.service';
 import { MarkedPipe } from './pipes/marked.pipe';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MarkedPipe } from './pipes/marked.pipe';
     TenantComponent,
     ProjectComponent,
     MarkedPipe,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
