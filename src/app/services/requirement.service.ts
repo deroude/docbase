@@ -20,5 +20,10 @@ export class RequirementService {
     );
   }
 
+  public addRequirement(tenantId: string, projectId: string, item: Requirement): void {
+    this.db.collection("/tenant/" + tenantId + "/projects/" + projectId + "/requirements")
+      .add(item);
+  }
+
 
 }

@@ -1,6 +1,6 @@
 <mat-tab-group>
   <mat-tab label="Requirements">
-    <button mat-button>Add top-level requirement</button>
+    <button mat-button (click)="addRequirement()">Add top-level requirement</button>
     <button mat-button>Export requirement document</button>
     <requirement *ngFor="let r of requirements$|async" [source]="r"></requirement>
   </mat-tab>
