@@ -3,6 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 import { MainComponent } from './components/main/main.component';
 import { AppMaterialModule } from './app.material.module';
 import { AppRoutingModule } from './app.routing.module';
@@ -50,7 +53,8 @@ import { MarkdownEditorDirective } from './directives/mde.directive';
     AppMaterialModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+
   ],
   providers: [AuthService, AngularFireAuth, ProgressService, TenantService, ProjectService, RequirementService],
   bootstrap: [MainComponent],
