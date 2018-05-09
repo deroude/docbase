@@ -63,10 +63,10 @@ import { RequirementEffects } from './store/effects/requirement';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    StoreModule.forRoot(Object.assign({}, reducers, { router: routerReducer })),
-    StoreRouterConnectingModule.forRoot({
-      stateKey: 'router', // name of reducer key
-    }),
+    StoreModule.forRoot(reducers),
+    // StoreRouterConnectingModule.forRoot({
+    //   stateKey: 'router', // name of reducer key
+    // }),
     StoreDevtoolsModule.instrument({
       maxAge: 15, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

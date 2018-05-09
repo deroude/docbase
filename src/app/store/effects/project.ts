@@ -15,6 +15,7 @@ import * as firebase from 'firebase/app';
 
 import * as tenant from "../actions/tenant";
 import * as project from "../actions/project";
+import * as requirement from "../actions/requirement";
 import * as auth from "../actions/auth";
 
 import { State } from '../reducers';
@@ -24,20 +25,19 @@ import { Project } from '../../domain/project';
 @Injectable()
 export class ProjectEffects {
 
-    private auth$: Observable<firebase.User>;
+    private auth$: Observable<firebase.User> = this.store$.select(state => state.auth.user);
+    private tenant$: Observable<string> = this.store$.select(state => state.tenant.selected);
 
     constructor(private actions$: Actions, private store$: Store<State>, private db: AngularFirestore) {
         db.firestore.settings({ timestampsInSnapshots: true });
-        this.auth$ = store$.select(state => state.auth.user);
     }
 
     @Effect()
     loadProjects$: Observable<Action> = this.actions$
-        .ofType(tenant.SELECT)
-        .map((action: tenant.SelectAction) => action.payload)
-        .withLatestFrom(this.auth$)
-        .filter(([t, u]) => u !== null)
-        .mergeMap(([t, u]) => this.db.collection<Project>("/tenant/" + t + "/projects")
+        .ofType(project.LOAD)
+        .withLatestFrom(this.tenant$, this.auth$)
+        .filter(([a, t, u]) => u !== null && t !== null)
+        .mergeMap(([a, t, u]) => this.db.collection<Project>("/tenant/" + t + "/projects")
             .snapshotChanges().map(actions => actions.map(a => {
                 let t: Project = a.payload.doc.data() as Project;
                 t.id = a.payload.doc.id;
@@ -50,5 +50,10 @@ export class ProjectEffects {
     unloadProjects$: Observable<Action> = this.actions$
         .ofType(auth.SIGNOUT_SUCCESS)
         .map(() => new project.ClearAction());
+
+    @Effect()
+    selectProject$: Observable<Action> = this.actions$
+        .ofType(project.SELECT)
+        .map(() => new requirement.LoadAction());
 
 }

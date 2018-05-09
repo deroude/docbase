@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 
 import { Requirement } from '../../domain/requirement';
 import { RequirementNode } from '../../domain/requirement-node';

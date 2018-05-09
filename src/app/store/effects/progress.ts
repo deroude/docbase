@@ -13,8 +13,8 @@ import * as progressActions from "../actions/progress";
 type showProgressTypes = authActions.SigninAction
     | authActions.SignupAction
     | authActions.SignoutAction
-    | projectActions.SelectAction
-    | tenantActions.SelectAction
+    | projectActions.LoadAction
+    | tenantActions.LoadAction
     | requirementActions.CreateAction
     | requirementActions.DeleteAction
     | requirementActions.UpdateAction;
@@ -39,11 +39,12 @@ const showProgressActions = [
     authActions.SIGNIN,
     authActions.SIGNOUT,
     authActions.SIGNUP,
-    projectActions.SELECT,
-    tenantActions.SELECT,
+    projectActions.LOAD,
+    tenantActions.LOAD,
     requirementActions.CREATE,
     requirementActions.DELETE,
-    requirementActions.UPDATE
+    requirementActions.UPDATE,
+    requirementActions.LOAD
 ]
 
 const hideProgressActions = [
@@ -52,7 +53,19 @@ const hideProgressActions = [
     authActions.SIGNOUT_FAIL,
     authActions.SIGNOUT_SUCCESS,
     authActions.SIGNUP_FAIL,
-    authActions.SIGNUP_SUCCESS
+    authActions.SIGNUP_SUCCESS,
+    tenantActions.LOAD_FAIL,
+    tenantActions.LOAD_SUCCESS,
+    projectActions.LOAD_FAIL,
+    projectActions.LOAD_SUCCESS,
+    requirementActions.LOAD_FAIL,
+    requirementActions.LOAD_SUCCESS,
+    requirementActions.CREATE_FAIL,
+    requirementActions.CREATE_SUCCESS,
+    requirementActions.UPDATE_FAIL,
+    requirementActions.UPDATE_SUCCESS,
+    requirementActions.DELETE_FAIL,
+    requirementActions.DELETE_SUCCESS
 ]
 
 @Injectable()

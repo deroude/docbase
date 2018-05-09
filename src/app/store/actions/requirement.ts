@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Requirement } from '../../domain/requirement';
 
+export const LOAD = "[Requirement] Load";
 export const LOAD_SUCCESS = "[Requirement] Load successful";
 export const LOAD_FAIL = "[Requirement] Load failed";
 export const CLEAR = "[Requirement] Clear";
@@ -17,6 +18,11 @@ export const DELETE_FAIL = "[Requirement] Delete failed";
 export interface ActionFail {
     subject: Requirement;
     error: string;
+}
+
+export class LoadAction implements Action {
+    readonly type = LOAD;
+    constructor() { };
 }
 
 export class LoadSuccessAction implements Action {
@@ -88,4 +94,5 @@ export type Actions = CreateAction
     | DeleteAction
     | DeleteFailAction
     | DeleteSuccessAction
-    | ClearAction;
+    | ClearAction
+    | LoadAction;
