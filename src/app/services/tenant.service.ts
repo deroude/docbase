@@ -5,7 +5,6 @@ import { ProgressService } from './progress.service';
 import { AuthService } from './auth.service';
 import { Tenant } from '../domain/Tenant';
 import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase/app';
 
 @Injectable()
 export class TenantService {

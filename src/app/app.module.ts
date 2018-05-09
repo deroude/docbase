@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule, Effect } from '@ngrx/effects';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { MainComponent } from './components/main/main.component';
 import { AppMaterialModule } from './app.material.module';
@@ -30,6 +32,13 @@ import { MarkedPipe } from './pipes/marked.pipe';
 import { HomeComponent } from './components/home/home.component';
 import { MarkdownEditorDirective } from './directives/mde.directive';
 
+import { reducers } from './store/reducers';
+import { AuthEffects } from './store/effects/auth';
+import { ProgressEffects } from './store/effects/progress';
+import { TenantEffects } from './store/effects/tenant';
+import { ProjectEffects } from './store/effects/project';
+import { RequirementEffects } from './store/effects/requirement';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +63,15 @@ import { MarkdownEditorDirective } from './directives/mde.directive';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-
+    StoreModule.forRoot(Object.assign({}, reducers, { router: routerReducer })),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router', // name of reducer key
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 15, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    EffectsModule.forRoot([AuthEffects, ProgressEffects, TenantEffects, ProjectEffects, RequirementEffects])
   ],
   providers: [AuthService, AngularFireAuth, ProgressService, TenantService, ProjectService, RequirementService],
   bootstrap: [MainComponent],

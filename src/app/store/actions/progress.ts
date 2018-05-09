@@ -5,7 +5,7 @@ export const STOP = "[Progress] Stop";
 
 export interface Progress {
     task: string;
-    percent: number;
+    percent?: number;
 }
 
 export class StartAction implements Action {

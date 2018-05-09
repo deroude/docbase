@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { Tenant } from '../../domain/Tenant';
+
 import { Observable } from 'rxjs/Observable';
-import { TenantService } from '../../services/tenant.service';
+
+import { Tenant } from '../../domain/Tenant';
+import * as fromRoot from '../../store/reducers';
+import { Store } from '@ngrx/store';
+import { SelectAction } from '../../store/actions/tenant';
 
 @Component({
   selector: 'tenant',
@@ -12,10 +15,19 @@ import { TenantService } from '../../services/tenant.service';
 })
 export class TenantComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-    private router: Router, private tenantService: TenantService) { }
-
   tenantId$: Observable<string>;
+
+  constructor(private route: ActivatedRoute,
+    private router: Router, private store: Store<fromRoot.State>) {
+    this.tenantId$ = this.store.select(state => state.tenant.selected);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('tenantId')) {
+        console.log("Tenant select",params);
+        store.dispatch(new SelectAction(params.get('tenantId')))
+      }
+    });
+  }
+
 
   ngOnInit() {
     this.tenantId$ = this.route.paramMap.map((params: ParamMap) => params.get('tenantId'));

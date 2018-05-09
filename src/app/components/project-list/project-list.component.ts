@@ -1,11 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Tenant } from '../../domain/Tenant';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operator/switchMap';
-import { TenantService } from '../../services/tenant.service';
+
 import { Project } from '../../domain/project';
-import { ProjectService } from '../../services/project.service';
+
+import * as fromRoot from '../../store/reducers';
 
 @Component({
   selector: 'project-list',
@@ -14,15 +16,13 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor(private projectService: ProjectService) { }
-
-  @Input("tenantId")
-  tenantId: string;
-
   projects$: Observable<Project[]>;
 
+  constructor(private store: Store<fromRoot.State>) {
+    this.projects$ = store.select(state => state.project.projects);
+  }
+
   ngOnInit() {
-    this.projects$ = this.projectService.getProjects(this.tenantId);
   }
 
 }

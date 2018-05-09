@@ -1,4 +1,4 @@
-<ng-container *ngIf="!loggedIn">
+<ng-container *ngIf="(auth$|async)===null">
   <button mat-button (click)="signIn()">
     <mat-icon aria-hidden="true">lock</mat-icon>
     <span> Login</span>
@@ -8,7 +8,7 @@
     <span> Sign up</span>
   </button>
 </ng-container>
-<button *ngIf="loggedIn" mat-button (click)="signOut()">
+<button *ngIf="(auth$|async)!==null" mat-button (click)="signOut()">
   <mat-icon aria-hidden="true">exit_to_app</mat-icon>
   <span> Logout</span>
 </button>

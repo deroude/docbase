@@ -8,6 +8,8 @@ export const SIGNUP = '[Auth] Signup';
 export const SIGNUP_SUCCESS = '[Auth] Signup Successful';
 export const SIGNUP_FAIL = '[Auth] Signup Failed';
 export const SIGNOUT = '[Auth] Signout';
+export const SIGNOUT_SUCCESS = '[Auth] Signout Successful';
+export const SIGNOUT_FAIL = '[Auth] Signout Failed';
 
 export interface Credentials {
     email: string;
@@ -46,13 +48,25 @@ export class SignupFailAction implements Action {
 
 export class SignoutAction implements Action {
     readonly type = SIGNOUT;
-    constructor(public payload: Credentials) { }
+    constructor() { }
+}
+
+export class SignoutSuccessAction implements Action {
+    readonly type = SIGNOUT_SUCCESS;
+    constructor() { }
+}
+
+export class SignoutFailAction implements Action {
+    readonly type = SIGNOUT_FAIL;
+    constructor(public payload: string) { }
 }
 
 export type Actions = SigninAction
     | SigninFailAction
     | SigninSuccessAction
     | SignoutAction
+    | SignoutSuccessAction
+    | SignoutFailAction
     | SignupAction
     | SignupFailAction
     | SignupSuccessAction;

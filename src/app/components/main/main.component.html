@@ -1,10 +1,10 @@
 <mat-toolbar color="primary" role="header" class="app-toolbar">
     <button mat-button routerLink="/home">Home</button>
-    <button mat-button *ngFor="let t of tenant$|async" [routerLink]="['/tenant',t.id]">{{t.fullName}}</button>
+    <button mat-button *ngFor="let t of tenants$|async" [routerLink]="['/tenant',t.id]">{{t.fullName}}</button>
     <span class="filler"></span>
     <auth></auth>
 </mat-toolbar>
-<mat-progress-bar mode="indeterminate" *ngIf="progressBarShown" class="app-progress"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="(progress$|async).show" class="app-progress"></mat-progress-bar>
 <div class="app-container">
     <router-outlet></router-outlet>
 </div>

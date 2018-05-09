@@ -3,16 +3,22 @@ import { Project } from '../../domain/project';
 
 export const SELECT = "[Project] Select";
 export const LOAD_SUCCESS = "[Project] Load successful";
-export const LOAD_FAIL = "[Project] Load failed"
+export const LOAD_FAIL = "[Project] Load failed";
+export const CLEAR="[Project] Clear";
 
 export class SelectAction implements Action {
     readonly type = SELECT;
     constructor(public payload: string) { }
 }
 
+export class ClearAction implements Action {
+    readonly type = CLEAR;
+    constructor() { }
+}
+
 export class LoadSuccessAction implements Action {
     readonly type = LOAD_SUCCESS;
-    constructor(public payload: Project) { }
+    constructor(public payload: Project[]) { }
 }
 
 export class LoadFailAction implements Action {
@@ -20,4 +26,4 @@ export class LoadFailAction implements Action {
     constructor(public payload: string) { }
 }
 
-export type Actions = SelectAction | LoadSuccessAction | LoadFailAction;
+export type Actions = SelectAction | LoadSuccessAction | LoadFailAction | ClearAction;
