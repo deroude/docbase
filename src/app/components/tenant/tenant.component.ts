@@ -22,7 +22,6 @@ export class TenantComponent implements OnInit {
     this.tenantId$ = this.store.select(state => state.tenant.selected);
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.get('tenantId')) {
-        console.log("Tenant select",params);
         store.dispatch(new SelectAction(params.get('tenantId')))
       }
     });

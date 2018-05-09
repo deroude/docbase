@@ -1,8 +1,15 @@
-textarea{
-    width:100%;
-    height:10rem;
+.full-width {
+    width: 100%;
 }
 
-input{
-    width:80%;
+.active {
+    background-color: lightblue;
+}
+
+.unpublished {
+    background-color: lightpink;
+}
+
+mat-card-actions{
+    height:2rem;
 }

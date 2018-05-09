@@ -19,18 +19,17 @@ import { SelectAction } from '../../store/actions/project';
 export class ProjectComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-    private router: Router, private store: Store<fromRoot.State>) {
-    this.requirements$ = store.select(state => state.requirement.requirements)
-      .map(rlist => this.processRankedList(rlist))
+    private router: Router, private store$: Store<fromRoot.State>) {
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.get('projectId')) {
-        console.log("Project select",params);
-        store.dispatch(new SelectAction(params.get('projectId')))
+        store$.dispatch(new SelectAction(params.get('projectId')))
       }
     });
   }
 
-  requirements$: Observable<Requirement[]>;
+  requirements$: Observable<RequirementNode[]> = this.store$
+    .select(state => state.requirement.requirements)
+    .map(rlist => this.processRankedList(rlist));
 
 
   ngOnInit() {
@@ -43,12 +42,12 @@ export class ProjectComponent implements OnInit {
       description: "",
       title: ""
     };
-    this.store.dispatch(new CreateAction(item));
+    this.store$.dispatch(new CreateAction(item));
   }
 
-  private processRankedList(raw: Requirement[]): Requirement[] {
+  private processRankedList(raw: Requirement[]): RequirementNode[] {
     let tree: RequirementNode[] = RequirementNode.parse(raw);
-    return tree.map(rn => rn.toArray()).reduce((p, c) => p.concat(c));
+    return tree.map(rn => rn.toArray()).reduce((p, c) => p.concat(c), []);
   }
 
 }

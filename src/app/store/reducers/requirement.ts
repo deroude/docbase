@@ -25,6 +25,10 @@ export function reducer(state = initialState, action: requirement.Actions): Stat
             return Object.assign({}, state, {
                 error: null
             });
+        case requirement.LOAD_SUCCESS:
+            return { requirements: action.payload, error: null }
+        case requirement.LOAD_FAIL:
+            return { requirements: [], error: action.payload }
         case requirement.CLEAR:
             return initialState;
     }

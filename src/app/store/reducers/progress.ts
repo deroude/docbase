@@ -14,7 +14,6 @@ export const initialState: State = {
 export function reducer(state = initialState, action: progress.Actions): State {
     switch (action.type) {
         case progress.START:
-            console.log("progress start", state, action.payload);
             var t = action.payload.task.substring(1).split(']')[0];
             return {
                 progress: state.progress
@@ -23,7 +22,6 @@ export function reducer(state = initialState, action: progress.Actions): State {
                 show: true
             }
         case progress.STOP:
-            console.log("progress stop", state, action.payload);
             var np = state.progress
                 .filter(p => p.task !== action.payload.substring(1).split(']')[0])
             return {

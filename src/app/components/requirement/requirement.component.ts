@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Requirement } from '../../domain/requirement';
+import { RequirementNode } from '../../domain/requirement-node';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../store/reducers';
+import * as requirement from '../../store/actions/requirement';
 
 @Component({
   selector: 'requirement',
@@ -8,7 +13,7 @@ import { Requirement } from '../../domain/requirement';
 })
 export class RequirementComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store$: Store<fromRoot.State>) { }
 
   editing: boolean = false;
   actionsVisible: boolean = false;
@@ -19,14 +24,19 @@ export class RequirementComponent implements OnInit {
   hideActions() { this.actionsVisible = false }
 
   @Input("source")
-  source: Requirement;
+  source: RequirementNode;
 
   ngOnInit() {
   }
 
   save() {
     this.editing = false;
-    this.actionsVisible=false;
+    this.actionsVisible = false;
+    this.store$.dispatch(new requirement.UpdateAction(this.source.requirement));
+  }
+
+  delete(){
+    this.store$.dispatch(new requirement.DeleteAction(this.source.requirement));
   }
 
 }

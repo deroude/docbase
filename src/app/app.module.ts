@@ -8,29 +8,26 @@ import { EffectsModule, Effect } from '@ngrx/effects';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { MainComponent } from './components/main/main.component';
-import { AppMaterialModule } from './app.material.module';
-import { AppRoutingModule } from './app.routing.module';
-import { RequirementComponent } from './components/requirement/requirement.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { environment } from '../environments/environment';
-import { AuthService } from './services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
+import { AppRoutingModule } from './app.routing.module';
+import { AppMaterialModule } from './app.material.module';
+
+import { environment } from '../environments/environment';
+
+import { MainComponent } from './components/main/main.component';
+import { RequirementComponent } from './components/requirement/requirement.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { ProgressService } from './services/progress.service';
-import { TenantService } from './services/tenant.service';
 import { ProjectListComponent } from './components/project-list/project-list.component';
-import { ProjectService } from './services/project.service';
 import { TenantComponent } from './components/tenant/tenant.component';
 import { ProjectComponent } from './components/project/project.component';
-import { RequirementService } from './services/requirement.service';
-import { MarkedPipe } from './pipes/marked.pipe';
 import { HomeComponent } from './components/home/home.component';
-import { MarkdownEditorDirective } from './directives/mde.directive';
+
+import { MarkedPipe } from './pipes/marked.pipe';
 
 import { reducers } from './store/reducers';
 import { AuthEffects } from './store/effects/auth';
@@ -51,8 +48,7 @@ import { RequirementEffects } from './store/effects/requirement';
     TenantComponent,
     ProjectComponent,
     MarkedPipe,
-    HomeComponent,
-    MarkdownEditorDirective,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +69,7 @@ import { RequirementEffects } from './store/effects/requirement';
     }),
     EffectsModule.forRoot([AuthEffects, ProgressEffects, TenantEffects, ProjectEffects, RequirementEffects])
   ],
-  providers: [AuthService, AngularFireAuth, ProgressService, TenantService, ProjectService, RequirementService],
+  providers: [AngularFireAuth],
   bootstrap: [MainComponent],
   entryComponents: [LoginComponent, SignupComponent]
 })

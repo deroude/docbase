@@ -95,4 +95,6 @@ export type Actions = CreateAction
     | DeleteFailAction
     | DeleteSuccessAction
     | ClearAction
-    | LoadAction;
+    | LoadAction
+    | LoadSuccessAction
+    | LoadFailAction;

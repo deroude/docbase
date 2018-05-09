@@ -35,9 +35,9 @@ export class TenantEffects {
         .withLatestFrom(this.auth$)
         .filter(([a, u]) => u !== null)
         .mergeMap(([a, u]) => this.db.collection<Tenant>("/tenant")
-            .snapshotChanges().map(actions => actions.map(a => {
-                let t: Tenant = a.payload.doc.data() as Tenant;
-                t.id = a.payload.doc.id;
+            .snapshotChanges().map(actions => actions.map(ax => {
+                let t: Tenant = ax.payload.doc.data() as Tenant;
+                t.id = ax.payload.doc.id;
                 return t;
             }).filter((t: Tenant) => t.members.includes(u.uid)))
         )

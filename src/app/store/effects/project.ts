@@ -38,10 +38,10 @@ export class ProjectEffects {
         .withLatestFrom(this.tenant$, this.auth$)
         .filter(([a, t, u]) => u !== null && t !== null)
         .mergeMap(([a, t, u]) => this.db.collection<Project>("/tenant/" + t + "/projects")
-            .snapshotChanges().map(actions => actions.map(a => {
-                let t: Project = a.payload.doc.data() as Project;
-                t.id = a.payload.doc.id;
-                return t;
+            .snapshotChanges().map(actions => actions.map(ax => {
+                let tx: Project = ax.payload.doc.data() as Project;
+                tx.id = ax.payload.doc.id;
+                return tx;
             })))
         .map(tlist => new project.LoadSuccessAction(tlist))
         .catch(err => of(new project.LoadFailAction(err)))

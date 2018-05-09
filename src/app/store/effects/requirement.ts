@@ -39,13 +39,13 @@ export class RequirementEffects {
         .ofType(requirement.LOAD)
         .withLatestFrom(this.auth$, this.tenant$, this.project$)
         .filter(([a, u, t, p]) => u !== null && t !== null && p !== null)
-        .switchMap(([a, u, t, p]) => this.db.collection("/tenant/" + t + "/projects/" + p + "/requirements")
-            .snapshotChanges().map(actions => actions.map(a => {
-                let t: Requirement = a.payload.doc.data() as Requirement;
-                t.id = a.payload.doc.id;
-                return t;
-            })))
-        .map(tlist => new requirement.LoadSuccessAction(tlist))
+        .mergeMap(([a, u, t, p]) => this.db.collection("/tenant/" + t + "/projects/" + p + "/requirements")
+            .snapshotChanges())
+        .map(tlist => new requirement.LoadSuccessAction(tlist.map(ax => {
+            let t: Requirement = ax.payload.doc.data() as Requirement;
+            t.id = ax.payload.doc.id;
+            return t;
+        })))
         .catch(err => of(new requirement.LoadFailAction(err)))
 
     @Effect()
@@ -62,5 +62,29 @@ export class RequirementEffects {
         .filter(([r, u, t, p]) => u !== null && t !== null && p !== null)
         .mergeMap(([r, u, t, p]) => fromPromise(this.db.collection("/tenant/" + t + "/projects/" + p + "/requirements")
             .add(r)).map(() => r))
-        .map((r) => new requirement.CreateSuccessAction(r));
+        .map((r) => new requirement.CreateSuccessAction(r))
+        .catch(err => of(new requirement.CreateFailAction(err)));
+
+    @Effect()
+    deleteRequirement$: Observable<Action> = this.actions$
+        .ofType(requirement.DELETE)
+        .map((action: requirement.DeleteAction) => action.payload)
+        .withLatestFrom(this.auth$, this.tenant$, this.project$)
+        .filter(([r, u, t, p]) => u !== null && t !== null && p !== null)
+        .mergeMap(([r, u, t, p]) => fromPromise(this.db.doc("/tenant/" + t + "/projects/" + p + "/requirements/" + r.id)
+            .delete()).map(() => r))
+        .map((r) => new requirement.DeleteSuccessAction(r))
+        .catch(err => of(new requirement.DeleteFailAction(err)));
+
+    @Effect()
+    updateRequirement$: Observable<Action> = this.actions$
+        .ofType(requirement.UPDATE)
+        .map((action: requirement.UpdateAction) => action.payload)
+        .withLatestFrom(this.auth$, this.tenant$, this.project$)
+        .filter(([r, u, t, p]) => u !== null && t !== null && p !== null)
+        .mergeMap(([r, u, t, p]) => fromPromise(this.db.doc("/tenant/" + t + "/projects/" + p + "/requirements/" + r.id)
+            .update(r)).map(() => r))
+        .map((r) => new requirement.UpdateSuccessAction(r))
+        .catch(err => of(new requirement.UpdateFailAction(err)));
+
 }
