@@ -1,4 +1,4 @@
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatProgressBarModule, MatListModule, MatTabsModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatProgressBarModule, MatListModule, MatTabsModule, MatIconRegistry } from '@angular/material';
 import { NgModule } from '@angular/core';
 
 @NgModule({
@@ -28,5 +28,13 @@ import { NgModule } from '@angular/core';
         MatListModule,
         MatTabsModule
     ],
+    providers: [
+        MatIconRegistry
+    ]
 })
-export class AppMaterialModule { }
+export class AppMaterialModule {
+    constructor(public matIconRegistry: MatIconRegistry) {
+        matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+        matIconRegistry.setDefaultFontSetClass('fa');
+    }
+}

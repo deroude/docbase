@@ -22,7 +22,5 @@
             <button mat-raised-button color="warn" (click)="delete()">Delete</button>
         </ng-container>
     </mat-card-actions>
-    <mat-card-content>
-        <requirement-list [requirements]="source.children" [level]="level+1" [parent]="source.requirement"></requirement-list>
-    </mat-card-content>
+    <requirement-list [requirements]="source.children" [level]="level+1" [parent]="source.requirement"></requirement-list>
 </mat-card>

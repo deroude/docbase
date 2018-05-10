@@ -15,8 +15,6 @@ import { CreateAction } from '../../store/actions/requirement';
 })
 export class RequirementListComponent implements OnInit {
 
-  @HostBinding("class") classes="indent";
-
   @Input("requirements")
   requirements: RequirementNode[];
   @Input("level")
