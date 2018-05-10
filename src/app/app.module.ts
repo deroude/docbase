@@ -35,6 +35,8 @@ import { ProgressEffects } from './store/effects/progress';
 import { TenantEffects } from './store/effects/tenant';
 import { ProjectEffects } from './store/effects/project';
 import { RequirementEffects } from './store/effects/requirement';
+import { FirestoreService } from './services/firestore.service';
+import { RequirementListComponent } from './components/requirement-list/requirement-list.component';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { RequirementEffects } from './store/effects/requirement';
     TenantComponent,
     ProjectComponent,
     MarkedPipe,
-    HomeComponent
+    HomeComponent,
+    RequirementListComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,7 @@ import { RequirementEffects } from './store/effects/requirement';
     }),
     EffectsModule.forRoot([AuthEffects, ProgressEffects, TenantEffects, ProjectEffects, RequirementEffects])
   ],
-  providers: [AngularFireAuth],
+  providers: [AngularFireAuth,FirestoreService],
   bootstrap: [MainComponent],
   entryComponents: [LoginComponent, SignupComponent]
 })

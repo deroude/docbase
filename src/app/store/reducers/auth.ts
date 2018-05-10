@@ -21,6 +21,7 @@ export function reducer(state = initialState, action: auth.Actions): State {
             return { user: null, error: action.payload };
         case auth.SIGNIN_SUCCESS:
             return { user: action.payload, error: null };
+        case auth.SIGNOUT:
         case auth.SIGNOUT_SUCCESS:
             return { user: null, error: null };
         case auth.SIGNOUT_FAIL:

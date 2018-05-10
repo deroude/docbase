@@ -29,25 +29,9 @@ export class ProjectComponent implements OnInit {
 
   requirements$: Observable<RequirementNode[]> = this.store$
     .select(state => state.requirement.requirements)
-    .map(rlist => this.processRankedList(rlist));
+    .map(rlist => RequirementNode.parse(rlist));
 
 
   ngOnInit() {
   }
-
-  addRequirement() {
-    let item: Requirement = {
-      lastUpdated: new Date(),
-      status: "unpublished",
-      description: "",
-      title: ""
-    };
-    this.store$.dispatch(new CreateAction(item));
-  }
-
-  private processRankedList(raw: Requirement[]): RequirementNode[] {
-    let tree: RequirementNode[] = RequirementNode.parse(raw);
-    return tree.map(rn => rn.toArray()).reduce((p, c) => p.concat(c), []);
-  }
-
 }

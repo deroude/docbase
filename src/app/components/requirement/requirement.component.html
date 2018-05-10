@@ -16,10 +16,13 @@
     </mat-card-content>
     <mat-card-actions>
         <ng-container *ngIf="actionsVisible||editing">
-            <button mat-raised-button>Add sub-requirement</button>
             <button *ngIf="editing" mat-raised-button (click)="save()">Save</button>
             <button *ngIf="!editing" mat-raised-button (click)="editing=true">Edit</button>
+            <button *ngIf="!editing" mat-raised-button>Publish</button>
             <button mat-raised-button color="warn" (click)="delete()">Delete</button>
         </ng-container>
     </mat-card-actions>
+    <mat-card-content>
+        <requirement-list [requirements]="source.children" [level]="level+1" [parent]="source.requirement"></requirement-list>
+    </mat-card-content>
 </mat-card>

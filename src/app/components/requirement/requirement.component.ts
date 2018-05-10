@@ -25,6 +25,8 @@ export class RequirementComponent implements OnInit {
 
   @Input("source")
   source: RequirementNode;
+  @Input("level")
+  level:number=0;
 
   ngOnInit() {
   }
