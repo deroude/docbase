@@ -34,7 +34,8 @@ import { NgModule } from '@angular/core';
 })
 export class AppMaterialModule {
     constructor(public matIconRegistry: MatIconRegistry) {
-        matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
-        matIconRegistry.setDefaultFontSetClass('fa');
+        // matIconRegistry.registerFontClassAlias('fontawesome-solid', 'fas');
+        // matIconRegistry.registerFontClassAlias('fontawesome-brand', 'fab');
+        matIconRegistry.setDefaultFontSetClass('fas');
     }
 }

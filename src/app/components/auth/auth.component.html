@@ -1,14 +1,14 @@
 <ng-container *ngIf="(auth$|async)===null">
   <button mat-button (click)="signIn()">
-    <mat-icon aria-hidden="true">lock</mat-icon>
+    <mat-icon aria-hidden="true" fontSet="fas" fontIcon="fa-key"></mat-icon>
     <span> Login</span>
   </button>
   <button mat-button (click)="signUp()">
-    <mat-icon aria-hidden="true">thumb_up</mat-icon>
+    <mat-icon aria-hidden="true" fontSet="fas" fontIcon="fa-user-plus"></mat-icon>
     <span> Sign up</span>
   </button>
 </ng-container>
 <button *ngIf="(auth$|async)!==null" mat-button (click)="signOut()">
-  <mat-icon aria-hidden="true">exit_to_app</mat-icon>
+  <mat-icon aria-hidden="true" fontSet="fas" fontIcon="fa-sign-out-alt"></mat-icon>
   <span> Logout</span>
 </button>
